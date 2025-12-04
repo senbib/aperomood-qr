@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Apéro Mood - Téléchargement</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9800, #ff5722);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 400px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: block;
+      text-decoration: none;
+      padding: 14px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.02);
+      opacity: 0.9;
+    }
+
+    .btn-android { background: #4CAF50; }
+    .btn-ios { background: #000; }
+    .btn-web { background: #ff9800; }
+
+    .primary {
+      border: 3px solid #2196f3;
+    }
+
+    #countdown {
+      margin-top: 15px;
+      font-size: 13px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Apéro Mood</h1>
+    <p>Redirection automatique vers votre plateforme…</p>
+
+    <a id="btn-android" class="btn btn-android" href="https://play.google.com/store/apps/details?id=com.aperomood.app">
+      📲 Télécharger sur Google Play
+    </a>
+
+    <a id="btn-ios" class="btn btn-ios" href="https://apps.apple.com/fr/app/ap%C3%A9ro-mood/id6745183241">
+      🍎 Télécharger sur App Store
+    </a>
+
+    <a id="btn-web" class="btn btn-web" href="https://www.aperomood.com">
+      🌐 Accéder au site web
+    </a>
+
+    <div id="countdown"></div>
+  </div>
+
+<script>
+  const androidLink = "https://play.google.com/store/apps/details?id=com.aperomood.app";
+  const iosLink = "https://apps.apple.com/fr/app/ap%C3%A9ro-mood/id6745183241";
+  const webLink = "https://www.aperomood.com";
+
+  const ua = navigator.userAgent.toLowerCase();
+  let target = webLink;
+
+  if (/android/.test(ua)) {
+    target = androidLink;
+    document.getElementById("btn-android").classList.add("primary");
+  } 
+  else if (/iphone|ipad|ipod/.test(ua)) {
+    target = iosLink;
+    document.getElementById("btn-ios").classList.add("primary");
+  } 
+  else {
+    document.getElementById("btn-web").classList.add("primary");
+  }
+
+  let seconds = 3;
+  const countdownEl = document.getElementById("countdown");
+
+  countdownEl.innerHTML = `Redirection automatique dans ${seconds} secondes...`;
+
+  const timer = setInterval(() => {
+    seconds--;
+    countdownEl.innerHTML = `Redirection automatique dans ${seconds} secondes...`;
+
+    if (seconds <= 0) {
+      clearInterval(timer);
+      window.location.href = target;
+    }
+  }, 1000);
+</script>
+
+</body>
+</html>
